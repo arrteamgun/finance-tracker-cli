@@ -38,3 +38,6 @@ class ExpenseService:
 
     def search(self, category: str = None, amount: float = None, date: date = None):
         return self.repo.search(category, amount, date)
+
+    def update(self, id: int, new_date: date = None, new_amount: float = None, new_description: str = None) -> None:
+        self.repo.update(id, new_date, new_amount, new_description)
