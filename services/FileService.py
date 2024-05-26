@@ -39,7 +39,7 @@ class FileService:
                 results.append(parts)
         return results
 
-    def update(self, id: int, new_date: datetime.date = None, new_amount: float = None, new_description: str = None) -> list:
+    def update(self, id: int, new_date: datetime.date = None, new_amount: float = None, new_description: str = None):
         lines = readfile()
         result = (new_date,  new_description, new_amount)
         for ind, l in enumerate(lines):
