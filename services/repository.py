@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from services.FileService import FileService
 from datetime import date
 from models.ExpenseRecord import ExpenseRecord
 from config import ROOT_DIR, DATA_DIR, BALANCE_DIR
@@ -20,7 +19,7 @@ class Repository(ABC):
         pass
 
     def update(self, id: int, new_date: date = None, new_amount: float = None, new_description: str = None) -> None:
-        #self.file_service.update(id, new_date, new_amount, new_description)
+        # self.file_service.update(id, new_date, new_amount, new_description)
         pass
 
 
@@ -86,25 +85,23 @@ class OperationsRepository(Repository):
                 expence_record.category = parts[4]
                 results.append(expence_record)
         return results
-    
-    def update(self, id: int, new_date: datetime.date = None, new_amount: float = None, new_description: str = None) -> ExpenseRecord:
-            lines = readfile()
-            result = (new_date,  new_description, new_amount)
-            for ind, l in enumerate(lines):
-                parts = l.strip().split(',')
-                l_args = (parts[1], parts[2], parts[3])
-                if int(parts[0]) == id:
-                    result = [x[1] or x[0] for x in  zip(l_args, result)]
-                    result.insert(0,parts[0])
-                    cat = ""
-                    if float(result[-1]) > 0:
-                        cat = "Доход"
-                    else:
-                        cat = "Расход"
-                    result.insert(4, cat)
-                    result = list(map(str, result))
-                    change_file(DATA_DIR, line=result, index=ind+1)
-                    return result
-                    #return expense record to show that line changed
 
-    
+    def update(self, id: int, new_date: datetime.date = None, new_amount: float = None, new_description: str = None) -> ExpenseRecord:
+        lines = readfile()
+        result = (new_date,  new_description, new_amount)
+        for ind, l in enumerate(lines):
+            parts = l.strip().split(',')
+            l_args = (parts[1], parts[2], parts[3])
+            if int(parts[0]) == id:
+                result = [x[1] or x[0] for x in zip(l_args, result)]
+                result.insert(0, parts[0])
+                cat = ""
+                if float(result[-1]) > 0:
+                    cat = "Доход"
+                else:
+                    cat = "Расход"
+                result.insert(4, cat)
+                result = list(map(str, result))
+                change_file(DATA_DIR, line=result, index=ind+1)
+                return result
+                # return expense record to show that line changed

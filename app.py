@@ -3,7 +3,6 @@
 import argparse
 from models.ExpenseRecord import ExpenseRecord
 from services.ExpenseService import ExpenseService
-from services.FileService import FileService
 from services.repository import *
 from datetime import date
 
@@ -74,7 +73,7 @@ def app(service: ExpenseService):
             header = ["id", "date", "description", "amount", "category"]
             print(*header, sep="\t")
             print(*service.update(args.id, new_amount=args.amount,
-                                                  new_description=args.description), sep='\t')
+                                  new_description=args.description), sep='\t')
 
 
 repo_balance = BalanceRepository()
